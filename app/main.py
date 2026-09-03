@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 import os
@@ -64,6 +65,9 @@ leads = {}
 # --- Endpoints ---
 @app.get("/")
 async def root():
+    widget_path = os.path.join(os.path.dirname(__file__), "frontend", "widget.html")
+    if os.path.exists(widget_path):
+        return FileResponse(widget_path)
     return {"message": "Lead Agent API is running!"}
 
 @app.get("/health")
