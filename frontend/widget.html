@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Agent Widget</title>
+    <link rel="stylesheet" href="widget.css">
+</head>
+<body>
+    <!-- Chat Button -->
+    <button id="chat-toggle" class="chat-toggle">
+        💬
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chat-window" class="chat-window hidden">
+        <div class="chat-header">
+            <h3>🏠 Property Assistant</h3>
+            <button id="chat-close" class="chat-close">✕</button>
+        </div>
+        
+        <div id="chat-messages" class="chat-messages">
+            <div class="message bot">
+                Hello! I'm here to help you find the perfect property. 
+                What are you looking for today?
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type your message..." />
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <script src="widget.js"></script>
+</body>
+</html>

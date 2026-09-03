@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Dashboard - ABC Properties</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🏠 ABC Properties</h2>
+            <p>Lead Management</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="active" onclick="loadLeads()">
+                📊 Dashboard
+            </a>
+            <a href="#" onclick="loadLeads()">
+                👥 All Leads
+            </a>
+            <a href="#">
+                ⚙️ Settings
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <p>Live Agent v1.0</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Lead Dashboard</h1>
+            <div class="header-actions">
+                <button class="btn-refresh" onclick="loadLeads()">
+                    🔄 Refresh
+                </button>
+                <span class="last-updated" id="lastUpdated">Last updated: Just now</span>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card total">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <span class="stat-number" id="totalLeads">0</span>
+                    <span class="stat-label">Total Leads</span>
+                </div>
+            </div>
+            <div class="stat-card hot">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-info">
+                    <span class="stat-number" id="hotLeads">0</span>
+                    <span class="stat-label">Hot Leads</span>
+                </div>
+            </div>
+            <div class="stat-card warm">
+                <div class="stat-icon">🟡</div>
+                <div class="stat-info">
+                    <span class="stat-number" id="warmLeads">0</span>
+                    <span class="stat-label">Warm Leads</span>
+                </div>
+            </div>
+            <div class="stat-card cold">
+                <div class="stat-icon">🔵</div>
+                <div class="stat-info">
+                    <span class="stat-number" id="coldLeads">0</span>
+                    <span class="stat-label">Cold Leads</span>
+                </div>
+            </div>
+            <div class="stat-card low">
+                <div class="stat-icon">⚪</div>
+                <div class="stat-info">
+                    <span class="stat-number" id="lowLeads">0</span>
+                    <span class="stat-label">Low Priority</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leads List -->
+        <div class="leads-section">
+            <div class="section-header">
+                <h2>All Leads</h2>
+                <div class="filters">
+                    <select id="priorityFilter" onchange="filterLeads()">
+                        <option value="all">All Priorities</option>
+                        <option value="HOT">🔥 Hot</option>
+                        <option value="WARM">🟡 Warm</option>
+                        <option value="COLD">🔵 Cold</option>
+                        <option value="LOW">⚪ Low</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="🔍 Search leads..." onkeyup="searchLeads()">
+                </div>
+            </div>
+            <div id="leadsList">
+                <div class="loading">Loading leads...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lead Detail Modal -->
+    <div id="leadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Lead Details</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div id="modalBody">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
