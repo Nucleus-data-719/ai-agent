@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
@@ -41,6 +42,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --- Serve Static Files ---
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Mount frontend
+frontend_path = os.path.join(ROOT_DIR, "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/widget", StaticFiles(directory=frontend_path), name="widget")
+    print(f"📁 Frontend mounted from: {frontend_path}")
+
+# Mount dashboard
+dashboard_path = os.path.join(ROOT_DIR, "dashboard")
+if os.path.exists(dashboard_path):
+    app.mount("/dashboard", StaticFiles(directory=dashboard_path), name="dashboard")
+    print(f"📁 Dashboard mounted from: {dashboard_path}")
+
+# --- Root Endpoint ---
+@app.get("/")
+async def root():
+    widget_path = os.path.join(ROOT_DIR, "frontend", "widget.html")
+    if os.path.exists(widget_path):
+        return FileResponse(widget_path)
+    return {"message": "Lead Agent API is running!"}
+
 # --- Models ---
 class ChatRequest(BaseModel):
     message: str
@@ -61,14 +85,6 @@ class LeadStatusUpdate(BaseModel):
 # --- In-memory fallback (if no DB) ---
 conversations = {}
 leads = {}
-
-# --- Endpoints ---
-@app.get("/")
-async def root():
-    widget_path = os.path.join(os.path.dirname(__file__), "frontend", "widget.html")
-    if os.path.exists(widget_path):
-        return FileResponse(widget_path)
-    return {"message": "Lead Agent API is running!"}
 
 @app.get("/health")
 async def health():
