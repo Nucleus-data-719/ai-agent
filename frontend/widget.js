@@ -1,5 +1,8 @@
 // Configuration
-const API_URL = 'http://localhost:8000';
+const API_URL = '';
+// For local testing, uncomment this:
+// const API_URL = 'http://localhost:8000';
+
 let conversationId = null;
 
 // DOM Elements
