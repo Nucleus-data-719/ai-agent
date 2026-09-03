@@ -35,7 +35,7 @@ async function sendMessage() {
     const typingId = addTypingIndicator();
 
     try {
-        const response = await fetch(`${API_URL}/chat`, {
+        const response = await fetch(`/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
