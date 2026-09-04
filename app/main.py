@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 from typing import Optional
 import os
@@ -60,10 +60,7 @@ if os.path.exists(dashboard_path):
 # --- Root Endpoint ---
 @app.get("/")
 async def root():
-    widget_path = os.path.join(ROOT_DIR, "frontend", "widget.html")
-    if os.path.exists(widget_path):
-        return FileResponse(widget_path)
-    return {"message": "Lead Agent API is running!"}
+    return RedirectResponse(url="/widget/widget.html")
 
 # --- Models ---
 class ChatRequest(BaseModel):
